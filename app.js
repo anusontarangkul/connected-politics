@@ -25,4 +25,16 @@ $(document).ready(function () {
     });
   }
   getLaw();
+
+  var options = {
+    strings: [
+      "Who are your representatives?",
+      "Who are your Senators?",
+      "Who is your Mayor?",
+      "Find out who represent you!",
+    ],
+    typeSpeed: 30,
+    backSpeed: 30,
+  };
+  var typed = new Typed("#typed", options);
 });
