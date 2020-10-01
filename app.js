@@ -1,4 +1,5 @@
 var APIkey = "EgraTtydGlMbucwd74Rsg0yDCtqMHEuYa76JSBN9";
+var containerDiv = $("container");
 // Usage is limited to 5000 requests per day
 
 // // Open States
