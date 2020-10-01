@@ -1,0 +1,28 @@
+var APIkey = "EgraTtydGlMbucwd74Rsg0yDCtqMHEuYa76JSBN9";
+// Usage is limited to 5000 requests per day
+
+// // Open States
+// API Key=  7697b752-32b6-48cf-977f-db868a07706a
+// 100 daily requests
+
+$(document).ready(function () {
+  function getLaw() {
+    var queryURL =
+      "https://api.propublica.org/congress/v1/bills/upcoming/house.json";
+    $.ajax({
+      type: "GET",
+      url: queryURL,
+      headers: {
+        "X-API-Key": "EgraTtydGlMbucwd74Rsg0yDCtqMHEuYa76JSBN9",
+      },
+    }).then(function (response) {
+      for (var i = 0; i < response.results[0].bills.length; i++) {
+        var description = response.results[0].bills[i].description;
+        var billNumber = response.results[0].bills[i].bill_number;
+        var billURL = response.results[0].bills[i].bill_url;
+        var scheduled = response.results[0].bills[i].scheduled_at;
+      }
+    });
+  }
+  getLaw();
+});
