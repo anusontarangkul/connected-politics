@@ -18,8 +18,8 @@ function getEOinfo() {
 
         console.log(r);
 
-        var natLVL =true;
-        var stateLVL = true;
+        var natLVL =false;
+        var stateLVL = false;
         var localLVL = true;
         var state = r.normalizedInput.state;
 
@@ -51,7 +51,10 @@ function displayEO() {
         
 
         var eoCard = $("<div>");
-        eoCard.attr("class", "eoCard");
+        eoCard.attr("class", "eoCard column p-1 is-three-quarters-mobile is-two-thirds-tablet is-one-third-desktop");
+
+        var eoWrap = $("<div>");
+        eoWrap.attr("class", "fill has-background-danger has-text-white p-2");
 
         var eoDisTitle = $("<p>");
         eoDisTitle.text(eoTitle);
@@ -65,9 +68,10 @@ function displayEO() {
 
 
         $("#eo-display-container").append(eoCard);
-        eoCard.append(eoDisName);
-        eoCard.append(eoDisTitle);
-        eoCard.append(eoDisParty);
+        eoCard.append(eoWrap);
+        eoWrap.append(eoDisName);
+        eoWrap.append(eoDisTitle);
+        eoWrap.append(eoDisParty);
     };
 
 
