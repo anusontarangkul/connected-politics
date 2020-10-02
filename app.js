@@ -51,7 +51,6 @@ $(document).ready(function () {
     typeSpeed: 30,
     backSpeed: 30,
   };
-  //var typed = new Typed("#typed", options);
-
   
+  var typed = new Typed("#typed", options);
 });
