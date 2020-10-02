@@ -32,7 +32,7 @@ $(document).ready(function () {
       "Who are your representatives?",
       "Who are your Senators?",
       "Who is your Mayor?",
-      "Find out who represent you!",
+      "Find out who represents you!",
     ],
     typeSpeed: 30,
     backSpeed: 30,
