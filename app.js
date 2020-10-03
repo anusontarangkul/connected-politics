@@ -37,11 +37,6 @@ $(document).ready(function () {
         var billURL = response.results[0].bills[i].bill_url;
         var scheduled = response.results[0].bills[i].scheduled_at;
 
-        console.log(description);
-        console.log(billNumber);
-        console.log(billURL);
-        console.log(scheduled);
-
         var billCard = $("<div>");
         billCard.attr(
           "class",
@@ -68,6 +63,38 @@ $(document).ready(function () {
         billWrap.append(billDisplayScheduled);
         billWrap.append(billDisplayDescription);
         billWrap.append(billDisplayURL)
+
+        var billModal = $("<div>");
+        billModal.attr("class", "modal");
+        billModal.attr("data-nametag", billNumber)
+
+        var billModalBackground = $("<div>");
+        billModalBackground.attr("class", "modal-background");
+
+        var billModalContent = $("<div>");
+        billModalContent.attr("class", "modal-content has-background-light");
+
+        var billModalClose = $("<button>");
+        billModalClose.attr("class", "modal-close is-large");
+        billModalClose.attr("aria-label", "close");
+
+        billModal.append(billModalBackground);
+        billModal.append(billModalContent);
+        billModal.append(billModalClose);
+        $("#modal-container").append(billModal);
+
+        var billModalTitle = $("<p>");
+        billModalTitle.text(billNumber);
+
+        var billModalDescription = $("<p>");
+        billModalDescription.text(description);
+
+        var billModalURL = $("<p>");
+        billModalURL.text(billURL);
+
+        var billModalScheduled = $("<p>");
+        billModalScheduled.text(scheduled);
+
       }
 
 
@@ -122,3 +149,8 @@ $(document).ready(function () {
 
   var typed = new Typed("#typed", options);
 });
+
+
+
+//Create variable for container
+//Change abbreviation variable
