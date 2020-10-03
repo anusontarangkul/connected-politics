@@ -35,8 +35,7 @@ $(document).ready(function () {
         var description = response.results[0].bills[i].description;
         var billNumber = response.results[0].bills[i].bill_number;
         var billURL = response.results[0].bills[i].bill_url;
-        var scheduled = response.results[0].bills[i].scheduled_at;
-        console.log(response);
+        var date = response.results[0].bills[i].legislative_day;  //date earliest considered
         var billCard = $("<div>");
         billCard.attr(
           "class",
@@ -49,8 +48,8 @@ $(document).ready(function () {
         billDisplayTitle.text(billNumber);
         billDisplayTitle.attr("id", "name");
 
-        var billDisplayScheduled = $("<p>");
-        billDisplayScheduled.text(scheduled);
+        var billDisplayDate = $("<p>");
+        billDisplayDate.text(date);
 
         var billDisplayDescription = $("<p>");
         billDisplayDescription.text(description);
@@ -61,7 +60,7 @@ $(document).ready(function () {
         $("#eo-display-container").append(billCard);
         billCard.append(billWrap);
         billWrap.append(billDisplayTitle);
-        billWrap.append(billDisplayScheduled);
+        billWrap.append(billDisplayDate);
         billWrap.append(billDisplayDescription);
         billWrap.append(billDisplayURL)
 
@@ -93,19 +92,19 @@ $(document).ready(function () {
         var billModalURL = $("<p>");
         billModalURL.text(billURL);
 
-        var billModalScheduled = $("<p>");
-        billModalScheduled.text(scheduled);
+        var billModalDate = $("<p>");
+        billModalDate.text(date);
 
         billModalContent.append(billModalTitle);
         billModalContent.append(billModalDescription);
         billModalContent.append(billModalURL);
-        billModalContent.append(billModalScheduled);
+        billModalContent.append(billModalDate);
 
 
       }
     });
   }
-  getLaw();
+
 
   function displayBillModal() {
     var modalList = document.getElementsByClassName("modal");
@@ -126,6 +125,12 @@ $(document).ready(function () {
 
   $("#modal-container").on("click", ".modal-background", function () {
     $(this).parent().removeClass("is-active");
+  });
+
+
+  $(".house-search").on("click", function () {
+    $("#eo-display-container").empty();
+    getLaw();
   });
 
 

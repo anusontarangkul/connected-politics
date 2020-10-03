@@ -60,7 +60,7 @@ function displayEO() {
         var eoDisParty = $("<p>");
         eoDisParty.text(eoParty);
 
-        $("#eo-display-container").append(eoCard);
+        $("#eo-display-container").append(eoCard); //variable
         eoCard.append(eoWrap);
         eoWrap.append(eoDisName);
         eoWrap.append(eoDisTitle);
@@ -85,12 +85,12 @@ function displayEO() {
         eoModal.append(eoModalBkgrnd);
         eoModal.append(eoModalContent);
         eoModal.append(eoModalClose);
-        $("#modal-container").append(eoModal);
+        $("#modal-container").append(eoModal);  //variable
 
         // Filling the modal with API elected official information
 
-        var testDisplay = $("<p>");
-        testDisplay.text(eoName);
+        var testDisplay = $("<p>"); //change variable name
+        testDisplay.text(eoName);   //add more content
         testDisplay.attr("class", "p-3");
         eoModalContent.append(testDisplay);
     };
