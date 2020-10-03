@@ -36,7 +36,7 @@ $(document).ready(function () {
         var billNumber = response.results[0].bills[i].bill_number;
         var billURL = response.results[0].bills[i].bill_url;
         var scheduled = response.results[0].bills[i].scheduled_at;
-
+        console.log(response);
         var billCard = $("<div>");
         billCard.attr(
           "class",
@@ -47,6 +47,7 @@ $(document).ready(function () {
 
         var billDisplayTitle = $("<p>");
         billDisplayTitle.text(billNumber);
+        billDisplayTitle.attr("id", "name");
 
         var billDisplayScheduled = $("<p>");
         billDisplayScheduled.text(scheduled);
@@ -95,46 +96,40 @@ $(document).ready(function () {
         var billModalScheduled = $("<p>");
         billModalScheduled.text(scheduled);
 
+        billModalContent.append(billModalTitle);
+        billModalContent.append(billModalDescription);
+        billModalContent.append(billModalURL);
+        billModalContent.append(billModalScheduled);
+
+
       }
-
-
-      //         // modal creation below - made on the same line to use the same ajax call and variables
-
-      //         var eoModal = $("<div>");
-      //         eoModal.attr("class", "modal");
-      //         eoModal.attr("data-nametag", eoName);
-
-      //         var eoModalBkgrnd = $("<div>");
-      //         eoModalBkgrnd.attr("class", "modal-background");
-
-      //         var eoModalContent = $("<div>");
-      //         eoModalContent.attr("class", "modal-content has-background-light");
-
-      //         var eoModalClose = $("<button>");
-      //         eoModalClose.attr("class", "modal-close is-large");
-      //         eoModalClose.attr("aria-label", "close");
-
-      //         eoModal.append(eoModalBkgrnd);
-      //         eoModal.append(eoModalContent);
-      //         eoModal.append(eoModalClose);
-      //         $("#modal-container").append(eoModal);
-
-      //         // Filling the modal with API elected official information
-
-      //         var testDisplay = $("<p>");
-      //         testDisplay.text(eoName);
-      //         testDisplay.attr("class", "p-3");
-      //         eoModalContent.append(testDisplay);
-      //     };
-
-      // };
-
-      // for (let i = 0; i < response.results[0].bills.length; i++) {
-      //   console.log(response);
-      // }
     });
   }
   getLaw();
+
+  function displayBillModal() {
+    var modalList = document.getElementsByClassName("modal");
+    var modalCheck = $(this).find("#name").text();
+
+    for (i = 0; i < modalList.length; i++) {
+      if ($(modalList[i]).data("nametag") === modalCheck) {
+        $(modalList[i]).addClass("is-active");
+      };
+    };
+  }
+
+  $("#eo-display-container").on("click", ".fill", displayBillModal);
+
+  $("#modal-container").on("click", ".modal-close", function () {
+    $(this).parent().removeClass("is-active");
+  });
+
+  $("#modal-container").on("click", ".modal-background", function () {
+    $(this).parent().removeClass("is-active");
+  });
+
+
+
 
   var options = {
     strings: [
