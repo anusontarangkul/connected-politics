@@ -43,12 +43,22 @@ $(document).ready(function () {
         // var billDisplayURL = $("<p>");
         // billDisplayURL.text(billURL);
 
+        var twitterShare = $("<a>");
+        twitterShare.attr('href', "https://twitter.com/intent/tweet?text=" + billURL);
+        twitterShare.addClass("twitter-share-button");
+        twitterShare.text("Tweet");
+        var twitterScript = $("<script>")
+        twitterScript.attr("src", "https://platform.twitter.com/widgets.js")
+        twitterShare.append(twitterScript);
+
+
         $("#eo-display-container").append(billCard);
         billCard.append(billWrap);
         billWrap.append(billDisplayTitle);
         // billWrap.append(billDisplayDate);
         billWrap.append(billDisplayDescription);
         // billWrap.append(billDisplayURL)
+        billWrap.append(twitterShare)
 
         var billModal = $("<div>");
         billModal.attr("class", "modal");
@@ -121,7 +131,6 @@ $(document).ready(function () {
 
 
 
-
   var options = {
     strings: [
       "Who are your representatives?",
@@ -133,10 +142,12 @@ $(document).ready(function () {
     backSpeed: 30,
   };
 
-  var typed = new Typed("#typed", options);
+
+
+
+
+
 });
 
 
 
-//Create variable for container
-//Change abbreviation variable
