@@ -1,3 +1,51 @@
 .fill {
     height: 100%;
-  };
+  }
+
+  #sizePhoto {
+    height: 300px;
+    float: left;
+  }
+
+  .social-icon {
+    height: 50px;
+  }
+
+  .party-icon {
+    height: 50px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 20px;
+  }
+
+.democratic {
+  background-color: #D7DFFC;
+  color: black;
+}
+
+.republican {
+  background-color: #FACDCD;
+  color: black;
+}
+
+.nonpartisan {
+  background-color: #E0DFDA;
+  color: black;
+}
+
+#name {
+  font-weight: bold;
+}
+
+.r-box-shadow:hover {
+  box-shadow: 3px 3px 3px rgb(189, 84, 84);
+}
+
+.d-box-shadow:hover {
+  box-shadow: 3px 3px 3px rgb(92, 92, 214);
+}
+
+.np-box-shadow:hover {
+  box-shadow: 3px 3px 3px rgb(116, 111, 111);
+}

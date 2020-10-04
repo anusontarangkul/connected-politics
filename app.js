@@ -5,20 +5,6 @@ var containerDiv = $("container");
 // // Open States
 // API Key=  7697b752-32b6-48cf-977f-db868a07706a
 // 100 daily requests
-var dropdown = false;
-$("#levelButton").on("click", function () {
-  var menu = $("#dropdown-class");
-
-  if (dropdown === false) {
-    menu.addClass("is-active");
-    menu.attr("data-menu", "show");
-    dropdown = true;
-  } else {
-    menu.removeClass("is-active");
-    menu.attr("data-menu", "hide");
-    dropdown = false;
-  }
-});
 
 $(document).ready(function () {
   function getLaw() {
