@@ -1,10 +1,20 @@
 
-var apiKey = "AIzaSyB9_EXjp94LjHiu63YgUiOSNUOJaAe4cII"
-var searchAdd = "2207 Addison Ave East Palo Alto CA 94303";
+var apiKey = "AIzaSyB9_EXjp94LjHiu63YgUiOSNUOJaAe4cII";
+var searchAdd = "houston Texas";
 var office;
 var elected;
 
-function getEOinfo() {
+var natLVL = true;
+var stateLVL = false;
+var localLVL = false;
+
+var dropdown = false;
+
+function displayEOinfo() {
+
+    // reset html elements inside of card and modal containers
+    $("#eo-display-container").empty();
+    $("#modal-container").empty();
 
     var queryURL = "https://www.googleapis.com/civicinfo/v2/representatives?address=" + searchAdd + "&key=" + apiKey;
 
@@ -16,39 +26,51 @@ function getEOinfo() {
         elected = r.officials;
 
         console.log(r);
-
-        var natLVL = true;
-        var stateLVL = true;
-        var localLVL = true;
         var state = r.normalizedInput.state;
 
         for (i = 0; i < r.offices.length; i++) {
 
             if (natLVL === true && (r.offices[i].name.includes("President") || r.offices[i].name.includes("U.S."))) {
-                displayEO();
+                getEOinfo();
             } else if (stateLVL === true && (r.offices[i].name.includes(state) || r.offices[i].name.includes("Governor"))) {
-                displayEO();
+                getEOinfo();
             } else if (localLVL === true && !r.offices[i].name.includes(state) && !r.offices[i].name.includes("Governor") && !r.offices[i].name.includes("U.S.") && !r.offices[i].name.includes("President")) {
-                displayEO();
+                getEOinfo();
             }
         };
     });
 };
 
-function displayEO() {
+function getEOinfo() {
 
     for (j = 0; j < office[i].officialIndices.length; j++) {
 
+        var eoInfo = elected[office[i].officialIndices[j]];
+
         var eoTitle = office[i].name;
-        var eoName = elected[office[i].officialIndices[j]].name;
-        var eoParty = elected[office[i].officialIndices[j]].party;
+        var eoName = eoInfo.name;
+        var eoParty = eoInfo.party;
+        var eoPhoto = eoInfo.photoUrl;
+        var eoNumber = eoInfo.phones[0];
+        var eoEmail = eoInfo.emails;
+        var eoSocial = eoInfo.channels;
+        var eoWebsite = eoInfo.urls;
+
 
 
         var eoCard = $("<div>");
         eoCard.attr("class", "eoCard column p-1 is-three-quarters-mobile is-two-thirds-tablet is-one-third-desktop");
 
         var eoWrap = $("<div>");
-        eoWrap.attr("class", "fill has-background-danger has-text-white p-2");
+        eoWrap.attr("class", "fill p-2 is-relative");
+
+        if (eoInfo.party === "Republican Party") {
+            eoWrap.addClass("republican r-box-shadow");
+        } else if (eoInfo.party === "Democratic Party") {
+            eoWrap.addClass("democratic d-box-shadow");
+        } else {
+            eoWrap.addClass("nonpartisan np-box-shadow");
+        }
 
         var eoDisTitle = $("<p>");
         eoDisTitle.text(eoTitle);
@@ -60,11 +82,22 @@ function displayEO() {
         var eoDisParty = $("<p>");
         eoDisParty.text(eoParty);
 
+        if (eoInfo.party === "Republican Party") {
+            var eoDisPartyIcon = $("<img>");
+            eoDisPartyIcon.attr("src", "./assets/images/republican.svg");
+            eoDisPartyIcon.attr("class", "party-icon is-vcentered");
+        } else if (eoInfo.party === "Democratic Party") {
+            var eoDisPartyIcon = $("<img>");
+            eoDisPartyIcon.attr("src", "./assets/images/democrat.svg");
+            eoDisPartyIcon.attr("class", "party-icon is-vcentered");
+        }
+
         $("#eo-display-container").append(eoCard);
         eoCard.append(eoWrap);
         eoWrap.append(eoDisName);
         eoWrap.append(eoDisTitle);
         eoWrap.append(eoDisParty);
+        eoWrap.append(eoDisPartyIcon);
 
         // modal creation below - made on the same line to use the same ajax call and variables
 
@@ -89,13 +122,112 @@ function displayEO() {
 
         // Filling the modal with API elected official information
 
-        var testDisplay = $("<p>");
-        testDisplay.text(eoName);
-        testDisplay.attr("class", "p-3");
-        eoModalContent.append(testDisplay);
+        if (eoPhoto !== undefined) {
+            var eoModalPhoto = $("<img>");
+            eoModalPhoto.attr("src", eoPhoto);
+            eoModalPhoto.attr("class", "p-3");
+            eoModalPhoto.attr("id", "sizePhoto");
+            eoModalContent.append(eoModalPhoto);
+        };
+
+        var eoModalName = $("<p>");
+        eoModalName.text(eoName);
+        eoModalName.attr("class", "p-3");
+
+        var eoModalTitle = $("<p>");
+        eoModalTitle.text(eoTitle);
+        eoModalTitle.attr("class", "p-3");
+
+        var eoModalParty = $("<p>");
+        eoModalParty.text(eoParty);
+        eoModalParty.attr("class", "p-3");
+
+        if (eoNumber !== undefined) {
+            var eoModalNumber = $("<p>");
+            eoModalNumber.text(eoNumber);
+            eoModalNumber.attr("class", "p-3");
+        }
+
+        if (eoEmail !== undefined) {
+            var eoModalEmail = $("<a>");
+            eoModalEmail.text(eoEmail);
+            eoModalEmail.attr("class", "p-3");
+            eoModalEmail.attr("href", "mailto:" + eoEmail);
+        }
+
+        if (eoSocial !== undefined) {
+
+            var ytCount = 0;
+
+            for (s = 0; s < eoSocial.length; s++) {
+
+                if (eoSocial[s].type === "Twitter") {
+                    var eoModalSocialLink = $("<a>");
+                    eoModalSocialLink.attr("href", "https://twitter.com/" + eoSocial[s].id);
+                    eoModalSocialLink.attr("target", "_blank");
+
+                    var eoModalSocial = $("<img>");
+                    eoModalSocial.attr("src", "./assets/images/twitter.svg");
+                    eoModalSocial.attr("class", "social-icon");
+
+                    eoModalSocialLink.append(eoModalSocial);
+                    eoModalContent.append(eoModalSocialLink);
+
+                } else if (eoSocial[s].type === "Facebook") {
+                    var eoModalSocialLink = $("<a>");
+                    eoModalSocialLink.attr("href", "https://www.facebook.com/" + eoSocial[s].id);
+                    eoModalSocialLink.attr("target", "_blank");
+
+
+                    var eoModalSocial = $("<img>");
+                    eoModalSocial.attr("src", "./assets/images/facebook.svg");
+                    eoModalSocial.attr("class", "social-icon");
+
+                    eoModalSocialLink.append(eoModalSocial);
+                    eoModalContent.append(eoModalSocialLink);
+
+                } else if (eoSocial[s].type === "YouTube" && ytCount === 0) {
+                    var eoModalSocialLink = $("<a>");
+                    eoModalSocialLink.attr("href", "https://www.youtube.com/" + eoSocial[s].id);
+                    eoModalSocialLink.attr("target", "_blank");
+
+                    var eoModalSocial = $("<img>");
+                    eoModalSocial.attr("src", "./assets/images/youtube.svg");
+                    eoModalSocial.attr("class", "social-icon");
+
+                    eoModalSocialLink.append(eoModalSocial);
+                    eoModalContent.append(eoModalSocialLink);
+
+                    ytCount++;
+                };
+            };
+        };
+
+        if (eoWebsite !== undefined) {
+            console.log(eoWebsite[0]);
+
+            var eoModalWebsiteLink = $("<a>");
+            eoModalWebsiteLink.attr("href", eoWebsite[0]);
+            eoModalWebsiteLink.attr("target", "_blank");
+
+            var eoModalWebsite = $("<img>");
+            eoModalWebsite.attr("src", "./assets/images/house.svg");
+            eoModalWebsite.attr("class", "social-icon");
+
+            eoModalWebsiteLink.append(eoModalWebsite);
+            eoModalContent.append(eoModalWebsiteLink);
+        }
+
+
+
+
+
+        eoModalContent.append(eoModalTitle);
+        eoModalContent.append(eoModalName);
+        eoModalContent.append(eoModalParty);
+        eoModalContent.append(eoModalNumber);
+        eoModalContent.append(eoModalEmail);
     };
-
-
 };
 
 function displayEOmodal() {
@@ -108,7 +240,7 @@ function displayEOmodal() {
             $(modalList[i]).addClass("is-active");
         };
     };
-}
+};
 
 $("#eo-display-container").on("click", ".fill", displayEOmodal);
 
@@ -124,8 +256,54 @@ $("#addSearchBtn").on("click", function () {
     var ipnut = $("#addSearchInput");
 
     searchAdd = ipnut.val();
-    getEOinfo();
+    displayEOinfo();
     ipnut.val("");
-    $("#eo-display-container").empty();
 });
 
+$("#dropdown-class").hover(function () {
+    var menu = $("#dropdown-class");
+
+    if (dropdown === false) {
+        menu.addClass("is-active");
+        menu.attr("data-menu", "show");
+        dropdown = true;
+    } else {
+        menu.removeClass("is-active");
+        menu.attr("data-menu", "hide");
+        dropdown = false;
+    }
+});
+
+$("#federal-level").on("click", function () {
+
+    if (searchAdd !== undefined) {
+        natLVL = true;
+        stateLVL = false;
+        localLVL = false;
+        displayEOinfo();
+    };
+});
+
+$("#state-level").on("click", function () {
+
+    if (searchAdd !== undefined) {
+        natLVL = false;
+        stateLVL = true;
+        localLVL = false;
+        displayEOinfo();
+    };
+});
+
+$("#local-level").on("click", function () {
+
+    if (searchAdd !== undefined) {
+        natLVL = false;
+        stateLVL = false;
+        localLVL = true;
+        displayEOinfo();
+
+        menu.removeClass("is-active");
+    };
+});
+
+displayEOmodal();
