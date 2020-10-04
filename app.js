@@ -41,6 +41,16 @@ $(document).ready(function () {
         var billDisplayDescription = $("<p>");
         billDisplayDescription.text(description);
 
+        var billLink = $("<a>");
+        billLink.attr("href", billURL);
+        billLink.attr("target", "_blank");
+
+        var billIcon = $("<img>");
+        billIcon.attr("src", "./assets/images/bill.svg");
+        billIcon.attr("class", "social-icon bill-icon");
+
+        billLink.append(billIcon);
+
         // var billDisplayURL = $("<p>");
         // billDisplayURL.text(billURL);
 
@@ -59,43 +69,44 @@ $(document).ready(function () {
         // billWrap.append(billDisplayDate);
         billWrap.append(billDisplayDescription);
         // billWrap.append(billDisplayURL)
-        billWrap.append(twitterShare)
+        billWrap.append(twitterShare);
+        billWrap.append(billLink);
 
-        var billModal = $("<div>");
-        billModal.attr("class", "modal");
-        billModal.attr("data-nametag", billNumber)
+        // var billModal = $("<div>");
+        // billModal.attr("class", "modal");
+        // billModal.attr("data-nametag", billNumber)
 
-        var billModalBackground = $("<div>");
-        billModalBackground.attr("class", "modal-background");
+        // var billModalBackground = $("<div>");
+        // billModalBackground.attr("class", "modal-background");
 
-        var billModalContent = $("<div>");
-        billModalContent.attr("class", "modal-content has-background-light");
+        // var billModalContent = $("<div>");
+        // billModalContent.attr("class", "modal-content has-background-light");
 
-        var billModalClose = $("<button>");
-        billModalClose.attr("class", "modal-close is-large");
-        billModalClose.attr("aria-label", "close");
+        // var billModalClose = $("<button>");
+        // billModalClose.attr("class", "modal-close is-large");
+        // billModalClose.attr("aria-label", "close");
 
-        billModal.append(billModalBackground);
-        billModal.append(billModalContent);
-        billModal.append(billModalClose);
-        $("#modal-container").append(billModal);
+        // billModal.append(billModalBackground);
+        // billModal.append(billModalContent);
+        // billModal.append(billModalClose);
+        // $("#modal-container").append(billModal);
 
-        var billModalTitle = $("<p>");
-        billModalTitle.text(billNumber);
+        // var billModalTitle = $("<p>");
+        // billModalTitle.text(billNumber);
 
-        var billModalDescription = $("<p>");
-        billModalDescription.text(description);
+        // var billModalDescription = $("<p>");
+        // billModalDescription.text(description);
 
-        var billModalURL = $("<p>");
-        billModalURL.text(billURL);
+        // var billModalURL = $("<p>");
+        // billModalURL.text(billURL);
 
-        var billModalDate = $("<p>");
-        billModalDate.text(date);
+        // var billModalDate = $("<p>");
+        // billModalDate.text(date);
 
-        billModalContent.append(billModalTitle);
-        billModalContent.append(billModalDescription);
-        billModalContent.append(billModalURL);
-        billModalContent.append(billModalDate);
+        // billModalContent.append(billModalTitle);
+        // billModalContent.append(billModalDescription);
+        // billModalContent.append(billModalURL);
+        // billModalContent.append(billModalDate);
 
 
       }
@@ -103,26 +114,26 @@ $(document).ready(function () {
   }
 
 
-  function displayBillModal() {
-    var modalList = document.getElementsByClassName("modal");
-    var modalCheck = $(this).find("#name").text();
+  // function displayBillModal() {
+  //   var modalList = document.getElementsByClassName("modal");
+  //   var modalCheck = $(this).find("#name").text();
 
-    for (i = 0; i < modalList.length; i++) {
-      if ($(modalList[i]).data("nametag") === modalCheck) {
-        $(modalList[i]).addClass("is-active");
-      };
-    };
-  }
+  //   for (i = 0; i < modalList.length; i++) {
+  //     if ($(modalList[i]).data("nametag") === modalCheck) {
+  //       $(modalList[i]).addClass("is-active");
+  //     };
+  //   };
+  // }
 
-  $("#eo-display-container").on("click", ".fill", displayBillModal);
+  // $("#eo-display-container").on("click", ".fill", displayBillModal);
 
-  $("#modal-container").on("click", ".modal-close", function () {
-    $(this).parent().removeClass("is-active");
-  });
+  // $("#modal-container").on("click", ".modal-close", function () {
+  //   $(this).parent().removeClass("is-active");
+  // });
 
-  $("#modal-container").on("click", ".modal-background", function () {
-    $(this).parent().removeClass("is-active");
-  });
+  // $("#modal-container").on("click", ".modal-background", function () {
+  //   $(this).parent().removeClass("is-active");
+  // });
 
 
   $(".house-search").on("click", function () {
