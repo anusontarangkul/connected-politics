@@ -1,8 +1,9 @@
 
 var apiKey = "AIzaSyB9_EXjp94LjHiu63YgUiOSNUOJaAe4cII";
-var searchAdd = "houston Texas";
+var searchAdd = "2207 Addison Ave East Palo Alto CA";
 var office;
 var elected;
+var displayAdd;
 
 var natLVL = true;
 var stateLVL = false;
@@ -25,6 +26,8 @@ function displayEOinfo() {
         office = r.offices;
         elected = r.officials;
 
+        displayCurrentAddress();
+
         console.log(r);
         var state = r.normalizedInput.state;
 
@@ -41,10 +44,27 @@ function displayEOinfo() {
     });
 };
 
+function displayCurrentAddress(){
+    
+
+    var queryURL = "https://www.googleapis.com/civicinfo/v2/representatives?address=" + searchAdd + "&key=" + apiKey;
+
+    $.ajax({
+        url: queryURL,
+        type: "GET"
+    }).then(function (r) {
+        office = r.offices;
+        elected = r.officials;
+
+        displayAdd = r.normalizedInput.line1 + ", " + r.normalizedInput.city + ", " + r.normalizedInput.state + " " + r.normalizedInput.zip;
+        $("#currentAddDisplay").text(displayAdd);
+    });
+};
+
+
 function getEOinfo() {
 
     for (j = 0; j < office[i].officialIndices.length; j++) {
-
         var eoInfo = elected[office[i].officialIndices[j]];
 
         var eoTitle = office[i].name;
@@ -204,7 +224,6 @@ function getEOinfo() {
         };
 
         if (eoWebsite !== undefined) {
-            console.log(eoWebsite[0]);
 
             var eoModalWebsiteLink = $("<a>");
             eoModalWebsiteLink.attr("href", eoWebsite[0]);
@@ -253,6 +272,7 @@ $("#addSearchBtn").on("click", function () {
 
     searchAdd = ipnut.val();
     displayEOinfo();
+    
     ipnut.val("");
 });
 

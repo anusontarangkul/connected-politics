@@ -58,31 +58,34 @@
             </div>
         </div>
     </nav>
-<!-- drop down filter button -->
-    <div class="dropdown mt-3 ml-3 has-background-white" id="dropdown-class" data-menu="hide">
-        <div class="dropdown-trigger">
-            <button class="button" id="levelButton" aria-haspopup="true" aria-controls="dropdown-menu">
-                <span id="lvlSet">Gov't Level</span>
-                <span class="icon is-small">
-                    <i class="fas fa-angle-down" aria-hidden="true"></i>
-                </span>
-            </button>
-        </div>
-        <div class="dropdown-menu" id="dropdown-menu" role="menu">
-            <div class="dropdown-content">
-                <a href="#" class="dropdown-item" id="federal-level">
-                    Federal Level
-                </a>
-                <a class="dropdown-item" id="state-level">
-                    State Level
-                </a>
-                <a href="#" class="dropdown-item" id="local-level">
-                    Local Level
-                </a>
+    <div class="level m-5">
+        <h1 id="currentAddDisplay" class="title is-4 is-centered level-item m-0">123 Test Address, TownofSomthin, CA</h1>
+        <!-- drop down filter button -->
+        <div class="dropdown has-background-white level-item" id="dropdown-class" data-menu="hide">
+            <div class="dropdown-trigger">
+                <button class="button" id="levelButton" aria-haspopup="true" aria-controls="dropdown-menu">
+                    <span id="lvlSet">Gov't Level</span>
+                    <span class="icon is-small">
+                        <i class="fas fa-angle-down" aria-hidden="true"></i>
+                    </span>
+                </button>
+            </div>
+            <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                <div class="dropdown-content">
+                    <a href="#" class="dropdown-item" id="federal-level">
+                        Federal Level
+                    </a>
+                    <a class="dropdown-item" id="state-level">
+                        State Level
+                    </a>
+                    <a href="#" class="dropdown-item" id="local-level">
+                        Local Level
+                    </a>
+                </div>
             </div>
         </div>
+        <!-- display current Address search -->
     </div>
-
     <!-- this is the container to append cards -->
     <div id="eo-display-container" class="columns is-multiline is-mobile p-4 is-centered">
         <section class="section is-medium">
