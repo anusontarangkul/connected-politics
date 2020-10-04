@@ -33,6 +33,7 @@ $(document).ready(function () {
         var billDisplayTitle = $("<p>");
         billDisplayTitle.text(billNumber);
         billDisplayTitle.attr("id", "name");
+        billDisplayTitle.addClass("has-text-weight-bold")
 
         // var billDisplayDate = $("<p>");
         // billDisplayDate.text(date);
@@ -141,6 +142,11 @@ $(document).ready(function () {
     typeSpeed: 30,
     backSpeed: 30,
   };
+
+  var typed = new Typed('#typed', options);
+  $(".typed-cursor").css("font-size", "xx-large")
+
+
 
 
 
