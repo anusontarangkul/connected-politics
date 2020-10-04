@@ -57,12 +57,25 @@ $(document).ready(function () {
         // var billDisplayURL = $("<p>");
         // billDisplayURL.text(billURL);
 
+        // <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=http://youtube.com"
+        // data-size="large">
+        // Tweet</a>
+        var twitterShare = $("<a>");
+        twitterShare.addClass("twitter-share-button");
+        twitterShare.attr('href', "https://twitter.com/intent/tweet?text=" + billURL);
+        twitterShare.attr("data-size", "large");
+        twitterShare.text("Tweet");
+
+
+
+
         $("#eo-display-container").append(billCard);
         billCard.append(billWrap);
         billWrap.append(billDisplayTitle);
         // billWrap.append(billDisplayDate);
         billWrap.append(billDisplayDescription);
         // billWrap.append(billDisplayURL)
+        billWrap.append(twitterShare)
 
         var billModal = $("<div>");
         billModal.attr("class", "modal");
@@ -132,7 +145,6 @@ $(document).ready(function () {
     $("#eo-display-container").empty();
     getLaw();
   });
-
 
 
 
