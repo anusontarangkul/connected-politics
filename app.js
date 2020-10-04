@@ -5,6 +5,8 @@ var containerDiv = $("container");
 // // Open States
 // API Key=  7697b752-32b6-48cf-977f-db868a07706a
 // 100 daily requests
+
+
 var dropdown = false;
 $("#levelButton").on("click", function () {
   var menu = $("#dropdown-class");
@@ -57,16 +59,13 @@ $(document).ready(function () {
         // var billDisplayURL = $("<p>");
         // billDisplayURL.text(billURL);
 
-        // <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=http://youtube.com"
-        // data-size="large">
-        // Tweet</a>
         var twitterShare = $("<a>");
-        twitterShare.addClass("twitter-share-button");
         twitterShare.attr('href', "https://twitter.com/intent/tweet?text=" + billURL);
-        twitterShare.attr("data-size", "large");
+        twitterShare.addClass("twitter-share-button");
         twitterShare.text("Tweet");
-
-
+        var twitterScript = $("<script>")
+        twitterScript.attr("src", "https://platform.twitter.com/widgets.js")
+        twitterShare.append(twitterScript);
 
 
         $("#eo-display-container").append(billCard);
@@ -159,10 +158,12 @@ $(document).ready(function () {
     backSpeed: 30,
   };
 
-  var typed = new Typed("#typed", options);
+
+
+
+
+
 });
 
 
 
-//Create variable for container
-//Change abbreviation variable
