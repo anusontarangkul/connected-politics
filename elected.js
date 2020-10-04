@@ -118,7 +118,7 @@ function getEOinfo() {
         eoModal.append(eoModalBkgrnd);
         eoModal.append(eoModalContent);
         eoModal.append(eoModalClose);
-        $("#modal-container").append(eoModal);
+        $("#modal-container").append(eoModal);  //variable
 
         // Filling the modal with API elected official information
 
