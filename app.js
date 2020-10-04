@@ -48,21 +48,21 @@ $(document).ready(function () {
         billDisplayTitle.text(billNumber);
         billDisplayTitle.attr("id", "name");
 
-        var billDisplayDate = $("<p>");
-        billDisplayDate.text(date);
+        // var billDisplayDate = $("<p>");
+        // billDisplayDate.text(date);
 
         var billDisplayDescription = $("<p>");
         billDisplayDescription.text(description);
 
-        var billDisplayURL = $("<p>");
-        billDisplayURL.text(billURL);
+        // var billDisplayURL = $("<p>");
+        // billDisplayURL.text(billURL);
 
         $("#eo-display-container").append(billCard);
         billCard.append(billWrap);
         billWrap.append(billDisplayTitle);
-        billWrap.append(billDisplayDate);
+        // billWrap.append(billDisplayDate);
         billWrap.append(billDisplayDescription);
-        billWrap.append(billDisplayURL)
+        // billWrap.append(billDisplayURL)
 
         var billModal = $("<div>");
         billModal.attr("class", "modal");
