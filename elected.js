@@ -218,10 +218,6 @@ function getEOinfo() {
             eoModalContent.append(eoModalWebsiteLink);
         }
 
-
-
-
-
         eoModalContent.append(eoModalTitle);
         eoModalContent.append(eoModalName);
         eoModalContent.append(eoModalParty);
@@ -281,6 +277,8 @@ $("#federal-level").on("click", function () {
         stateLVL = false;
         localLVL = false;
         displayEOinfo();
+
+        $("#lvlSet").text("Federal Level");
     };
 });
 
@@ -291,6 +289,8 @@ $("#state-level").on("click", function () {
         stateLVL = true;
         localLVL = false;
         displayEOinfo();
+
+        $("#lvlSet").text("State Level");
     };
 });
 
@@ -302,7 +302,7 @@ $("#local-level").on("click", function () {
         localLVL = true;
         displayEOinfo();
 
-        menu.removeClass("is-active");
+        $("#lvlSet").text("Local Level");
     };
 });
 
