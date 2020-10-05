@@ -1,6 +1,7 @@
 
 .fill {
     height: 100%;
+    cursor: pointer;
   }
 
   #sizePhoto {
@@ -91,4 +92,16 @@ main {
   display: flex;
   min-height: 60vh;
   flex-direction: column;
+}
+
+.show {
+  display: inline-block;
+  margin: 0 20px;
+}
+
+.holder {
+  display:flex;
+  align-items:center;
+  text-align: center;
+  justify-content: center;
 }

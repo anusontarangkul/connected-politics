@@ -1,6 +1,7 @@
 
 var apiKey = "AIzaSyB9_EXjp94LjHiu63YgUiOSNUOJaAe4cII";
 var searchAdd = "2207 Addison Ave East Palo Alto CA";
+
 var office;
 var elected;
 var displayAdd;
@@ -10,12 +11,11 @@ var stateLVL = false;
 var localLVL = false;
 
 var dropdown = false;
+var validAddressCheck = false;
 
 function displayEOinfo() {
 
     // reset html elements inside of card and modal containers
-    $("#eo-display-container").empty();
-    $("#modal-container").empty();
 
     var queryURL = "https://www.googleapis.com/civicinfo/v2/representatives?address=" + searchAdd + "&key=" + apiKey;
 
@@ -26,41 +26,50 @@ function displayEOinfo() {
         office = r.offices;
         elected = r.officials;
 
-        displayCurrentAddress();
+        validAddressCheck = true;
 
-        console.log(r);
-        var state = r.normalizedInput.state;
+        if (validAddressCheck) {
+            $("#dropdown-lvl").removeClass("hide");
+            $("#currentAddDisplay").removeClass("hide");
+            $("#dropdown-lvl").addClass("show");
+            $("#currentAddDisplay").addClass("show");
+        };
+
+        var address = r.normalizedInput;
+        var normInputAddress = "";
+
+        if (address.line1 !== "") {
+            normInputAddress += address.line1 + ", ";
+        }
+
+        if (address.city !== "") {
+            normInputAddress += address.city + ", ";
+        }
+
+        if (address.state !== "") {
+            normInputAddress += address.state + " ";
+        }
+
+        if (address.zip !== "") {
+            normInputAddress += address.zip;
+        }
+
+        $("#currentAddDisplay").text(normInputAddress);
+        $("#eo-display-container").empty();
+        $("#modal-container").empty();
 
         for (i = 0; i < r.offices.length; i++) {
 
             if (natLVL === true && (r.offices[i].name.includes("President") || r.offices[i].name.includes("U.S."))) {
                 getEOinfo();
-            } else if (stateLVL === true && (r.offices[i].name.includes(state) || r.offices[i].name.includes("Governor"))) {
+            } else if (stateLVL === true && (r.offices[i].name.includes(address.state) || r.offices[i].name.includes("Governor"))) {
                 getEOinfo();
-            } else if (localLVL === true && !r.offices[i].name.includes(state) && !r.offices[i].name.includes("Governor") && !r.offices[i].name.includes("U.S.") && !r.offices[i].name.includes("President")) {
+            } else if (localLVL === true && !r.offices[i].name.includes(address.state) && !r.offices[i].name.includes("Governor") && !r.offices[i].name.includes("U.S.") && !r.offices[i].name.includes("President")) {
                 getEOinfo();
             }
         };
     });
 };
-
-function displayCurrentAddress() {
-
-
-    var queryURL = "https://www.googleapis.com/civicinfo/v2/representatives?address=" + searchAdd + "&key=" + apiKey;
-
-    $.ajax({
-        url: queryURL,
-        type: "GET"
-    }).then(function (r) {
-        office = r.offices;
-        elected = r.officials;
-
-        displayAdd = r.normalizedInput.line1 + ", " + r.normalizedInput.city + ", " + r.normalizedInput.state + " " + r.normalizedInput.zip;
-        $("#currentAddDisplay").text(displayAdd);
-    });
-};
-
 
 function getEOinfo() {
 
@@ -119,10 +128,6 @@ function getEOinfo() {
         eoWrap.append(eoDisParty);
         eoWrap.append(eoDisPartyIcon);
 
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        // modal creation below - made on the same line to use the same ajax call and variables
-
         var eoModal = $("<div>");
         eoModal.attr("class", "modal");
         eoModal.attr("data-nametag", eoName);
@@ -168,11 +173,7 @@ function getEOinfo() {
 
         eoModal.append(eoModalBkgrnd);
         eoModal.append(eoModalCard);
-        $("#modal-container").append(eoModal);  //variable
-
-        // Filling the modal with API elected official information
-
-
+        $("#modal-container").append(eoModal);
 
         if (eoPhoto !== undefined) {
             var eoModalPhoto = $("<img>");
@@ -201,13 +202,12 @@ function getEOinfo() {
             eoModalEmail.attr("class", "p-3");
             eoModalEmail.attr("href", "mailto:" + eoEmail);
         }
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         eoModalBody.append(eoModalTextContainer);
         eoModalTextContainer.append(eoModalTitle);
         eoModalTextContainer.append(eoModalParty);
         eoModalTextContainer.append(eoModalNumber);
         eoModalTextContainer.append(eoModalEmail);
-
 
         if (eoSocial !== undefined) {
 
@@ -295,25 +295,23 @@ $("#modal-container").on("click", ".modal-background", function () {
 });
 
 $("#addSearchBtn").on("click", function () {
-    var ipnut = $("#addSearchInput");
+    var input = $("#addSearchInput");
 
-    searchAdd = ipnut.val();
+    searchAdd = input.val();
     displayEOinfo();
+    input.val("");
+    validAddressCheck = false;
 
-    $(".government-level").removeClass("hide");
-    ipnut.val("");
 });
 
-$("#dropdown-class").hover(function () {
-    var menu = $("#dropdown-class");
+$("#dropdown-lvl").hover(function () {
+    var menu = $("#dropdown-lvl");
 
     if (dropdown === false) {
         menu.addClass("is-active");
-        menu.attr("data-menu", "show");
         dropdown = true;
     } else {
         menu.removeClass("is-active");
-        menu.attr("data-menu", "hide");
         dropdown = false;
     }
 });
@@ -353,5 +351,3 @@ $("#local-level").on("click", function () {
         $("#lvlSet").text("Local Level");
     };
 });
-
-displayEOmodal();

@@ -76,7 +76,10 @@ $(document).ready(function () {
   $(".house-search").on("click", function () {
     $("#eo-display-container").empty();
     getLaw();
-    $(".government-level").addClass("hide");
+    
+    $("#dropdown-lvl").removeClass("show");
+    $("#currentAddDisplay").removeClass("show");
+    $("#dropdown-lvl").addClass("hide");
     $("#currentAddDisplay").addClass("hide");
   });
 
@@ -95,12 +98,6 @@ $(document).ready(function () {
   //Typing animation
   var typed = new Typed('#typed', options);
   $(".typed-cursor").css("font-size", "xx-large")
-
-
-
-
-
-
 
 
 });
