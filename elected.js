@@ -1,8 +1,9 @@
 
 var apiKey = "AIzaSyB9_EXjp94LjHiu63YgUiOSNUOJaAe4cII";
-var searchAdd = "houston Texas";
+var searchAdd = "2207 Addison Ave East Palo Alto CA";
 var office;
 var elected;
+var displayAdd;
 
 var natLVL = true;
 var stateLVL = false;
@@ -25,6 +26,8 @@ function displayEOinfo() {
         office = r.offices;
         elected = r.officials;
 
+        displayCurrentAddress();
+
         console.log(r);
         var state = r.normalizedInput.state;
 
@@ -41,10 +44,27 @@ function displayEOinfo() {
     });
 };
 
+function displayCurrentAddress() {
+
+
+    var queryURL = "https://www.googleapis.com/civicinfo/v2/representatives?address=" + searchAdd + "&key=" + apiKey;
+
+    $.ajax({
+        url: queryURL,
+        type: "GET"
+    }).then(function (r) {
+        office = r.offices;
+        elected = r.officials;
+
+        displayAdd = r.normalizedInput.line1 + ", " + r.normalizedInput.city + ", " + r.normalizedInput.state + " " + r.normalizedInput.zip;
+        $("#currentAddDisplay").text(displayAdd);
+    });
+};
+
+
 function getEOinfo() {
 
     for (j = 0; j < office[i].officialIndices.length; j++) {
-
         var eoInfo = elected[office[i].officialIndices[j]];
 
         var eoTitle = office[i].name;
@@ -99,6 +119,8 @@ function getEOinfo() {
         eoWrap.append(eoDisParty);
         eoWrap.append(eoDisPartyIcon);
 
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         // modal creation below - made on the same line to use the same ajax call and variables
 
         var eoModal = $("<div>");
@@ -108,31 +130,56 @@ function getEOinfo() {
         var eoModalBkgrnd = $("<div>");
         eoModalBkgrnd.attr("class", "modal-background");
 
-        var eoModalContent = $("<div>");
-        eoModalContent.attr("class", "modal-content has-background-light");
+        var eoModalCard = $("<div>");
+        eoModalCard.attr("class", "modal-card has-background-light");
+
+        var eoModalHeader = $("<header>");
+        eoModalHeader.attr("class", "modal-card-head has-background-light");
+
+        var eoModalBody = $("<section>");
+        eoModalBody.attr("class", "modal-card-body has-text-centered");
+
+        var eoModalFooter = $("<footer>");
+        eoModalFooter.attr("class", "modal-card-footer");
 
         var eoModalClose = $("<button>");
-        eoModalClose.attr("class", "modal-close is-large");
+        eoModalClose.attr("id", "close");
+        eoModalClose.attr("class", "delete");
         eoModalClose.attr("aria-label", "close");
 
+        var eoModalName = $("<p>");
+        eoModalName.text(eoName);
+        eoModalName.attr("class", "modal-name is-size-4 has-text-weight-semibold");
+
+        var eoModalIconContainer = $("<div>");
+        eoModalIconContainer.attr("class", "social-icon-container");
+
+        var eoModalTextContainer = $("<div>");
+        eoModalTextContainer.attr("class", "text-container");
+
+
+        eoModalFooter.append(eoModalIconContainer);
+        eoModalHeader.append(eoModalName);
+        eoModalHeader.append(eoModalClose);
+
+        eoModalCard.append(eoModalHeader);
+        eoModalCard.append(eoModalBody);
+        eoModalCard.append(eoModalFooter);
+
         eoModal.append(eoModalBkgrnd);
-        eoModal.append(eoModalContent);
-        eoModal.append(eoModalClose);
+        eoModal.append(eoModalCard);
         $("#modal-container").append(eoModal);  //variable
 
         // Filling the modal with API elected official information
 
+
+
         if (eoPhoto !== undefined) {
             var eoModalPhoto = $("<img>");
             eoModalPhoto.attr("src", eoPhoto);
-            eoModalPhoto.attr("class", "p-3");
             eoModalPhoto.attr("id", "sizePhoto");
-            eoModalContent.append(eoModalPhoto);
+            eoModalBody.append(eoModalPhoto);
         };
-
-        var eoModalName = $("<p>");
-        eoModalName.text(eoName);
-        eoModalName.attr("class", "p-3");
 
         var eoModalTitle = $("<p>");
         eoModalTitle.text(eoTitle);
@@ -154,6 +201,13 @@ function getEOinfo() {
             eoModalEmail.attr("class", "p-3");
             eoModalEmail.attr("href", "mailto:" + eoEmail);
         }
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        eoModalBody.append(eoModalTextContainer);
+        eoModalTextContainer.append(eoModalTitle);
+        eoModalTextContainer.append(eoModalParty);
+        eoModalTextContainer.append(eoModalNumber);
+        eoModalTextContainer.append(eoModalEmail);
+
 
         if (eoSocial !== undefined) {
 
@@ -168,23 +222,22 @@ function getEOinfo() {
 
                     var eoModalSocial = $("<img>");
                     eoModalSocial.attr("src", "./assets/images/twitter.svg");
-                    eoModalSocial.attr("class", "social-icon");
+                    eoModalSocial.attr("class", "social-icon m-4");
 
                     eoModalSocialLink.append(eoModalSocial);
-                    eoModalContent.append(eoModalSocialLink);
+                    eoModalIconContainer.append(eoModalSocialLink);
 
                 } else if (eoSocial[s].type === "Facebook") {
                     var eoModalSocialLink = $("<a>");
                     eoModalSocialLink.attr("href", "https://www.facebook.com/" + eoSocial[s].id);
                     eoModalSocialLink.attr("target", "_blank");
 
-
                     var eoModalSocial = $("<img>");
                     eoModalSocial.attr("src", "./assets/images/facebook.svg");
-                    eoModalSocial.attr("class", "social-icon");
+                    eoModalSocial.attr("class", "social-icon m-4");
 
                     eoModalSocialLink.append(eoModalSocial);
-                    eoModalContent.append(eoModalSocialLink);
+                    eoModalIconContainer.append(eoModalSocialLink);
 
                 } else if (eoSocial[s].type === "YouTube" && ytCount === 0) {
                     var eoModalSocialLink = $("<a>");
@@ -193,10 +246,10 @@ function getEOinfo() {
 
                     var eoModalSocial = $("<img>");
                     eoModalSocial.attr("src", "./assets/images/youtube.svg");
-                    eoModalSocial.attr("class", "social-icon");
+                    eoModalSocial.attr("class", "social-icon m-4");
 
                     eoModalSocialLink.append(eoModalSocial);
-                    eoModalContent.append(eoModalSocialLink);
+                    eoModalIconContainer.append(eoModalSocialLink);
 
                     ytCount++;
                 };
@@ -204,25 +257,18 @@ function getEOinfo() {
         };
 
         if (eoWebsite !== undefined) {
-            console.log(eoWebsite[0]);
 
             var eoModalWebsiteLink = $("<a>");
             eoModalWebsiteLink.attr("href", eoWebsite[0]);
             eoModalWebsiteLink.attr("target", "_blank");
 
             var eoModalWebsite = $("<img>");
-            eoModalWebsite.attr("src", "./assets/images/house.svg");
-            eoModalWebsite.attr("class", "social-icon");
+            eoModalWebsite.attr("src", "./assets/images/homepage.svg");
+            eoModalWebsite.attr("class", "social-icon m-4");
 
             eoModalWebsiteLink.append(eoModalWebsite);
-            eoModalContent.append(eoModalWebsiteLink);
-        }
-
-        eoModalContent.append(eoModalTitle);
-        eoModalContent.append(eoModalName);
-        eoModalContent.append(eoModalParty);
-        eoModalContent.append(eoModalNumber);
-        eoModalContent.append(eoModalEmail);
+            eoModalIconContainer.append(eoModalWebsiteLink);
+        };
     };
 };
 
@@ -240,8 +286,8 @@ function displayEOmodal() {
 
 $("#eo-display-container").on("click", ".fill", displayEOmodal);
 
-$("#modal-container").on("click", ".modal-close", function () {
-    $(this).parent().removeClass("is-active");
+$("#modal-container").on("click", "#close", function () {
+    $(this).closest(".modal").removeClass("is-active");
 });
 
 $("#modal-container").on("click", ".modal-background", function () {
@@ -253,6 +299,8 @@ $("#addSearchBtn").on("click", function () {
 
     searchAdd = ipnut.val();
     displayEOinfo();
+
+    $(".government-level").removeClass("hide");
     ipnut.val("");
 });
 
