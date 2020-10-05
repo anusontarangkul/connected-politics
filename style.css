@@ -1,16 +1,19 @@
-@import '../node_modules/bulma-tooltip/src/sass/index.sass';
-
 .fill {
     height: 100%;
   }
 
   #sizePhoto {
     height: 300px;
-    float: left;
   }
 
   .social-icon {
     height: 50px;
+  }
+
+  .social-icon-container {
+    width: fit-content;
+    display: block;
+    margin: 0 auto;
   }
 
   .party-icon {
@@ -50,4 +53,16 @@
 
 .np-box-shadow:hover {
   box-shadow: 3px 3px 3px rgb(116, 111, 111);
+}
+
+
+#close {
+  position: absolute;
+    top: 50%;
+    right: 33px;
+    transform: translateY(-50%);
+}
+
+.modal-name {
+  margin: 0 auto;
 }
