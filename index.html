@@ -58,45 +58,46 @@
             </div>
         </div>
     </nav>
-    <!-- drop down filter button -->
-    <div class="dropdown mt-3 ml-3 has-background-white" id="dropdown-class" data-menu="hide">
-        <div class="dropdown-trigger">
-            <button class="button" id="levelButton" aria-haspopup="true" aria-controls="dropdown-menu">
-                <span id="lvlSet">Gov't Level</span>
-                <span class="icon is-small">
-                    <i class="fas fa-angle-down" aria-hidden="true"></i>
-                </span>
-            </button>
-        </div>
-        <div class="dropdown-menu" id="dropdown-menu" role="menu">
-            <div class="dropdown-content">
-                <a href="#" class="dropdown-item" id="federal-level">
-                    Federal Level
-                </a>
-                <a class="dropdown-item" id="state-level">
-                    State Level
-                </a>
-                <a href="#" class="dropdown-item" id="local-level">
-                    Local Level
-                </a>
+    <main>
+        <!-- drop down filter button -->
+        <div class="dropdown mt-3 ml-3 has-background-white government-level" id="dropdown-class" data-menu="hide">
+            <div class="dropdown-trigger">
+                <button class="button" id="levelButton" aria-haspopup="true" aria-controls="dropdown-menu">
+                    <span id="lvlSet">Gov't Level</span>
+                    <span class="icon is-small">
+                        <i class="fas fa-angle-down" aria-hidden="true"></i>
+                    </span>
+                </button>
+            </div>
+            <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                <div class="dropdown-content">
+                    <a href="#" class="dropdown-item" id="federal-level">
+                        Federal Level
+                    </a>
+                    <a class="dropdown-item" id="state-level">
+                        State Level
+                    </a>
+                    <a href="#" class="dropdown-item" id="local-level">
+                        Local Level
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- this is the container to append cards -->
-    <div id="eo-display-container" class="columns is-multiline is-mobile p-4 is-centered">
-        <section class="section is-medium">
-            <div class="container">
-                <h1 class="title">Where do you live?</h1>
-                <h2 class="subtitle">
-                    A simple container to divide your page into <strong>sections</strong>, like the one you're currently
-                    reading
-                </h2>
-            </div>
-        </section>
-    </div>
-    <!-- this is the container to append modals -->
-    <div id="modal-container"></div>
+        <!-- this is the container to append cards -->
+        <div id="eo-display-container" class="columns is-multiline is-mobile p-4 is-centered">
+            <section class="section is-medium">
+                <div class="container">
+                    <h1 class="title">Where do you live?</h1>
+                    <h2 class="subtitle">
+                        Learn more about your elected officials and upcoming legislation.
+                    </h2>
+                </div>
+            </section>
+        </div>
+        <!-- this is the container to append modals -->
+        <div id="modal-container"></div>
+    </main>
 
     <footer class="footer">
         <div class="content has-text-centered">
@@ -110,7 +111,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
     <script src="./elected.js"></script>
-    <script src="./app.js"></script>
+    <script src="./bill.js"></script>
     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 </body>
