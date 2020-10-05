@@ -77,6 +77,7 @@ $(document).ready(function () {
     $("#eo-display-container").empty();
     getLaw();
     $(".government-level").addClass("hide");
+    $("#currentAddDisplay").addClass("hide");
   });
 
 
@@ -85,8 +86,8 @@ $(document).ready(function () {
     strings: [
       "Who are your representatives?",
       "Who are your Senators?",
-      "Who is your Mayor?",
       "Find out who represents you!",
+      "Welcome to CONNECTED POLITICS!"
     ],
     typeSpeed: 30,
     backSpeed: 30,
