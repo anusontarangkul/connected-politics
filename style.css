@@ -79,11 +79,16 @@
   float: right;
 }
 
-/* .bill-icon:hover {
+.bill-icon:hover {
   -webkit-transform: scale(1.3,1.3);
-} */
+}
 
 .hide {
   display: none;
 }
 
+main {
+  display: flex;
+  min-height: 60vh;
+  flex-direction: column;
+}
