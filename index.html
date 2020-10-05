@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Find your Legislator</title>
+    <title>Connected Politics</title>
     <!-- style sheet links -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.1/css/bulma.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-social@1/bin/bulma-social.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
     <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./balloon.css">
 </head>
 
 <body>
@@ -24,9 +25,9 @@
     </header>
 
     <!-- nav container -->
-    <nav class="level">
+    <nav class="level m-0">
         <!-- Left side -->
-        <div class="level-left mt-3 ml-3">
+        <div class="level-left m-5">
             <div class="level-item">
                 <p class="subtitle is-5">
                     Where do you <strong>Live</strong>?
@@ -38,14 +39,14 @@
                         <input id="addSearchInput" class="input" type="text" placeholder="Address">
                     </p>
                     <p class="control">
-                        <button id="addSearchBtn" class="button is-success">Search</button>
+                        <button id="addSearchBtn" class="button is-success" aria-label="Please use full address for best results" data-balloon-pos="up">Search</button>
                     </p>
                 </div>
             </div>
         </div>
 
         <!-- Right side -->
-        <div class="level-right mt-3 mr-3">
+        <div class="level-right m-5">
             <div class="level-item">
                 <p class="subtitle is-5">
                     <strong>Upcoming Bills</strong>
@@ -59,14 +60,13 @@
         </div>
     </nav>
     <main>
-        <div class="level m-5">
-            <h1 id="currentAddDisplay" class="title is-4 is-centered level-item m-0">
-            </h1>
+        <div class="holder m-4">
+            <h1 id="currentAddDisplay" class="title is-4 m-0 hide"></h1>
             <!-- drop down filter button -->
-            <div class="dropdown mt-3 ml-3 has-background-white government-level" id="dropdown-class" data-menu="hide">
+            <div class="dropdown has-background-white hide" id="dropdown-lvl">
                 <div class="dropdown-trigger">
                     <button class="button" id="levelButton" aria-haspopup="true" aria-controls="dropdown-menu">
-                        <span id="lvlSet">Gov't Level</span>
+                        <span id="lvlSet">Federal Level</span>
                         <span class="icon is-small">
                             <i class="fas fa-angle-down" aria-hidden="true"></i>
                         </span>
@@ -89,7 +89,7 @@
         </div>
 
         <!-- this is the container to append cards -->
-        <div id="eo-display-container" class="columns is-multiline is-mobile p-4 is-centered">
+        <div id="eo-display-container" class="columns is-multiline is-mobile is-centered m-0">
             <section class="section is-medium">
                 <div class="container">
                     <h1 class="title">Where do you live?</h1>
