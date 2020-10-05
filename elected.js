@@ -300,6 +300,7 @@ $("#addSearchBtn").on("click", function () {
     searchAdd = ipnut.val();
     displayEOinfo();
 
+    $(".government-level").removeClass("hide");
     ipnut.val("");
 });
 
