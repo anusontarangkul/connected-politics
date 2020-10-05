@@ -52,7 +52,7 @@ $(document).ready(function () {
         billLink.append(billIcon);
 
         var twitterShare = $("<a>");
-        twitterShare.attr('href', "https://twitter.com/intent/tweet?text=" + billURL);
+        twitterShare.attr('href', "https://twitter.com/intent/tweet?text=Learn more about upcoming laws and who your reps are! " + billURL);
         twitterShare.addClass("twitter-share-button");
         twitterShare.text("Tweet");
         var twitterScript = $("<script>")
