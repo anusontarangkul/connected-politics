@@ -92,3 +92,7 @@ main {
   min-height: 60vh;
   flex-direction: column;
 }
+
+.hero {
+  min-height: 12rem;
+}

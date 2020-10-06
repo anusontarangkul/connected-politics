@@ -1,9 +1,8 @@
-var APIkey = "EgraTtydGlMbucwd74Rsg0yDCtqMHEuYa76JSBN9";
-var containerDiv = $("container");
-// Usage is limited to 5000 requests per day
+
 
 $(document).ready(function () {
-  function getLaw() {
+
+  function getUpcomingBill() {
     var queryURL =
       "https://api.propublica.org/congress/v1/bills/upcoming/house.json";
     $.ajax({
@@ -15,10 +14,10 @@ $(document).ready(function () {
     }).then(function (response) {
 
       for (var i = 0; i < response.results[0].bills.length; i++) {
-        var description = response.results[0].bills[i].description;
+        var billDescription = response.results[0].bills[i].description;
         var billNumber = response.results[0].bills[i].bill_number;
         var billURL = response.results[0].bills[i].bill_url;
-        var date = response.results[0].bills[i].legislative_day;  //date earliest considered
+        var billDate = response.results[0].bills[i].legislative_day;
         var billCard = $("<div>");
         billCard.attr(
           "class",
@@ -26,7 +25,7 @@ $(document).ready(function () {
         );
         var billWrap = $("<div>");
         billWrap.attr("class", "column fill has-background-primary-dark has-text-white p-2 bill-box");
-        // has-background-danger
+
 
         var billDisplayTitle = $("<p>");
         billDisplayTitle.text(billNumber);
@@ -35,10 +34,10 @@ $(document).ready(function () {
 
         var billDisplayDate = $("<p>");
         billDisplayDate.addClass("is-italic")
-        billDisplayDate.text(date);
+        billDisplayDate.text(billDate);
 
         var billDisplayDescription = $("<p>");
-        billDisplayDescription.text(description);
+        billDisplayDescription.text(billDescription);
         billDisplayDescription.addClass("has-text-weight-medium")
 
         var billLink = $("<a>");
@@ -75,12 +74,12 @@ $(document).ready(function () {
 
   $(".house-search").on("click", function () {
     $("#eo-display-container").empty();
-    getLaw();
+    getUpcomingBill();
     $(".government-level").addClass("hide");
     $("#currentAddDisplay").addClass("hide");
   });
 
-
+  //Typing Animation
 
   var options = {
     strings: [
@@ -92,7 +91,7 @@ $(document).ready(function () {
     typeSpeed: 30,
     backSpeed: 30,
   };
-  //Typing animation
+
   var typed = new Typed('#typed', options);
   $(".typed-cursor").css("font-size", "xx-large")
 
