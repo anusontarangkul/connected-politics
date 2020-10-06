@@ -94,6 +94,9 @@ main {
   flex-direction: column;
 }
 
+.hero {
+  min-height: 12rem;
+}
 .show {
   display: inline-block;
   margin: 0 20px;
