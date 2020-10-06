@@ -26,6 +26,8 @@ function displayEOinfo() {
         office = r.offices;
         elected = r.officials;
 
+        console.log(r);
+        
         validAddressCheck = true;
 
         if (validAddressCheck) {
