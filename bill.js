@@ -51,7 +51,7 @@ $(document).ready(function () {
         billLink.append(billIcon);
 
         var twitterShare = $("<a>");
-        twitterShare.attr('href', "https://twitter.com/intent/tweet?text=" + billURL);
+        twitterShare.attr('href', "https://twitter.com/intent/tweet?text=Learn more about upcoming laws and who your reps are! " + billURL);
         twitterShare.addClass("twitter-share-button");
         twitterShare.text("Tweet");
         var twitterScript = $("<script>")
@@ -74,8 +74,14 @@ $(document).ready(function () {
 
   $(".house-search").on("click", function () {
     $("#eo-display-container").empty();
+
     getUpcomingBill();
-    $(".government-level").addClass("hide");
+
+
+    $("#dropdown-lvl").removeClass("show");
+    $("#currentAddDisplay").removeClass("show");
+    $("#dropdown-lvl").addClass("hide");
+
     $("#currentAddDisplay").addClass("hide");
   });
 
@@ -94,12 +100,6 @@ $(document).ready(function () {
 
   var typed = new Typed('#typed', options);
   $(".typed-cursor").css("font-size", "xx-large")
-
-
-
-
-
-
 
 
 });

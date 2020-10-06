@@ -1,6 +1,7 @@
 
 .fill {
     height: 100%;
+    cursor: pointer;
   }
 
   #sizePhoto {
@@ -95,4 +96,15 @@ main {
 
 .hero {
   min-height: 12rem;
+}
+.show {
+  display: inline-block;
+  margin: 0 20px;
+}
+
+.holder {
+  display:flex;
+  align-items:center;
+  text-align: center;
+  justify-content: center;
 }
